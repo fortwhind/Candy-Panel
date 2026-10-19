@@ -12,14 +12,212 @@ gui.ResetOnSpawn = false
 gui.Parent = player:WaitForChild("PlayerGui")
 
 local frame = Instance.new("Frame")
-frame.Size = UDim2.fromOffset(300, 200)
-frame.Position = UDim2.new(0, 30, 0.35, 0)
-frame.BackgroundColor3 = Color3.fromRGB(24, 25, 35)
+frame.Size = UDim2.fromOffset(400, 250)
+frame.Position = UDim2.new(0, 30, 0.3, 0)
+frame.BackgroundColor3 = Color3.fromRGB(17, 16, 25)
+frame.BorderSizePixel = 0
 frame.Parent = gui
 
+local frameCorner = Instance.new("UICorner")
+frameCorner.CornerRadius = UDim.new(0, 12)
+frameCorner.Parent = frame
 
-Instance.new("UICorner", frame).CornerRadius =
-    UDim.new(0, 12)
+local frameStroke = Instance.new("UIStroke")
+frameStroke.Color = Color3.fromRGB(67, 48, 91)
+frameStroke.Thickness = 1
+frameStroke.Transparency = 0.25
+frameStroke.Parent = frame
+local sidebar = Instance.new("Frame")
+sidebar.Name = "Sidebar"
+sidebar.Size = UDim2.new(0, 115, 1, -58)
+sidebar.Position = UDim2.fromOffset(10, 48)
+sidebar.BackgroundColor3 = Color3.fromRGB(25, 20, 34)
+sidebar.BorderSizePixel = 0
+sidebar.Parent = frame
+local function criarBotaoSidebar(nome, texto, ordem)
+	local botao = Instance.new("TextButton")
+    botao.Name = nome
+    botao.Size = UDim2.new(1, -12, 0, 34)
+    botao.Position = UDim2.fromOffset(6, 8 + (ordem - 1) * 40)
+    botao.BackgroundColor3 = Color3.fromRGB(43, 32, 58)
+    botao.BorderSizePixel = 0
+    botao.Text = texto
+    botao.TextColor3 = Color3.fromRGB(225, 211, 240)
+    botao.TextSize = 13
+    botao.Font = Enum.Font.GothamMedium
+    botao.Parent = sidebar
+
+    local canto = Instance.new("UICorner")
+    canto.CornerRadius = UDim.new(0, 7)
+    canto.Parent = botao
+
+    return botao
+end
+
+local botaoInicio = criarBotaoSidebar("Inicio", "⌂ Inicio", 1)
+local botaoVisual = criarBotaoSidebar("Visual", "◉ Visual", 2)
+local botaoAjustes = criarBotaoSidebar("Ajustes", "⚙ Ajustes", 3)
+local conteudo = Instance.new("Frame")
+conteudo.Name = "Conteudo"
+conteudo.Size = UDim2.new(1, -145, 1, -58)
+conteudo.Position = UDim2.fromOffset(135, 48)
+conteudo.BackgroundColor3 = Color3.fromRGB(25, 20 ,34)
+conteudo.BorderSizePixel = 0
+conteudo.Parent = frame
+conteudo.ZIndex = 2
+
+local conteudoCorner = Instance.new("UICorner")
+conteudoCorner.CornerRadius = UDim.new(0, 8)
+conteudoCorner.Parent = conteudo
+
+local tituloPagina = Instance.new("TextLabel")
+tituloPagina.Name = "TituloPagina"
+tituloPagina.Size = UDim2.new(1, -24, 0, 32)
+tituloPagina.Position = UDim2.fromOffset(12, 10)
+tituloPagina.BackgroundTransparency = 1
+tituloPagina.Text = "Inicio"
+tituloPagina.TextColor3 = Color3.fromRGB(240, 230, 255)
+tituloPagina.TextSize = 18
+tituloPagina.Font = Enum.Font.GothamBold
+tituloPagina.TextXAlignment = Enum.TextXAlignment.Left
+tituloPagina.Parent = conteudo
+tituloPagina.ZIndex = 3
+tituloPagina.Visible = true
+tituloPagina.TextTransparency = 0
+tituloPagina.TextColor3 = Color3.fromRGB(240, 230, 255)
+
+local descricaoPagina = Instance.new("TextLabel")
+descricaoPagina.Name = "DescricaoPagina"
+descricaoPagina.Size = UDim2.new(1, -24, 0, 40)
+descricaoPagina.Position = UDim2.fromOffset(12, 45)
+descricaoPagina.BackgroundTransparency = 1
+descricaoPagina.Text = "🍬 Bem-vindo ao Candy Panel 🍬"
+descricaoPagina.TextColor3 = Color3.fromRGB(177, 163, 194)
+descricaoPagina.TextSize = 12
+descricaoPagina.Font = Enum.Font.Gotham
+descricaoPagina.TextWrapped = true
+descricaoPagina.TextXAlignment = Enum.TextXAlignment.Left
+descricaoPagina.TextYAlignment = Enum.TextYAlignment.Top
+descricaoPagina.Parent = conteudo
+descricaoPagina.ZIndex = 3
+descricaoPagina.Visible = true
+descricaoPagina.TextTransparency = 0
+local areaInicio = Instance.new("Frame")
+areaInicio.Name = "AreaInicio"
+areaInicio.Size = UDim2.new(1, -24, 1, -100)
+areaInicio.Position = UDim2.fromOffset(12, 88)
+areaInicio.BackgroundTransparency = 1
+areaInicio.Parent = conteudo
+
+local areaVisual = Instance.new("Frame")
+areaVisual.Name = "AreaVisual"
+areaVisual.Size = areaInicio.Size
+areaVisual.Position = areaInicio.Position
+areaVisual.BackgroundTransparency = 1
+areaVisual.Visible = false
+areaVisual.Parent = conteudo
+local areaAjustes = Instance.new("Frame")
+areaAjustes.Name = "AreaAjustes"
+areaAjustes.Size = areaInicio.Size
+areaAjustes.Position = areaInicio.Position
+areaAjustes.BackgroundTransparency = 1
+areaAjustes.Visible = false
+areaAjustes.Parent = conteudo
+local botaoTema = Instance.new("TextButton")
+botaoTema.Name = "BotaoTema"
+botaoTema.Size = UDim2.new(1, 0, 0, 38)
+botaoTema.Position = UDim2.fromOffset(0, 0)
+botaoTema.BackgroundColor3 = Color3.fromRGB(48, 35, 66)
+botaoTema.BorderSizePixel = 0
+botaoTema.Text = "Tema escuro: OFF"
+botaoTema.TextColor3 = Color3.fromRGB(255, 255, 255)
+botaoTema.TextSize = 13
+botaoTema.Font = Enum.Font.GothamBold
+botaoTema.Parent = areaAjustes
+botaoTema.Visible = true
+botaoTema.ZIndex = 4
+
+local cantoTema = Instance.new("UICorner")
+cantoTema.CornerRadius = UDim.new(0, 8)
+cantoTema.Parent = botaoTema
+
+local temaEscuro = false
+
+botaoTema.Activated:Connect(function()
+    temaEscuro = not temaEscuro
+
+    if temaEscuro then
+        conteudo.BackgroundColor3 = Color3.fromRGB(12, 10, 17)
+        sidebar.BackgroundColor3 = Color3.fromRGB(18, 15, 24)
+        botaoTema.Text = "Tema escuro: ON"
+        botaoTema.BackgroundColor3 = Color3.fromRGB(105, 67, 150)
+    else
+        conteudo.BackgroundColor3 = Color3.fromRGB(25, 20, 34)
+        sidebar.BackgroundColor3 = Color3.fromRGB(25, 20, 34)
+        botaoTema.Text = "Tema escuro: OFF"
+        botaoTema.BackgroundColor3 = Color3.fromRGB(48, 35, 66)
+    end
+end)
+
+
+
+local function trocarPagina(nome, descricao, botaoSelecionado)
+    tituloPagina.Text = nome
+    descricaoPagina.Text = descricao
+
+    areaInicio.Visible = nome == "Início" or nome == "Inicio"
+    areaVisual.Visible = nome == "Visual"
+    areaAjustes.Visible = nome == "Ajustes"
+
+    local botoes = {
+        botaoInicio,
+        botaoVisual,
+        botaoAjustes
+    }
+
+    for _, botao in ipairs(botoes) do
+        botao.BackgroundColor3 = Color3.fromRGB(43, 32, 58)
+        botao.TextColor3 = Color3.fromRGB(225, 211, 240)
+    end
+
+    botaoSelecionado.BackgroundColor3 = Color3.fromRGB(105, 67, 150)
+    botaoSelecionado.TextColor3 = Color3.fromRGB(255, 255, 255)
+end
+
+
+botaoInicio.Activated:Connect(function()
+    trocarPagina(
+        "Início",
+        "Bem-vindo ao Candy Panel!",
+        botaoInicio
+    )
+end)
+
+botaoVisual.Activated:Connect(function()
+    trocarPagina(
+        "Visual",
+        "O tal do ESP de Doces.",
+        botaoVisual
+    )
+end)
+
+botaoAjustes.Activated:Connect(function()
+    trocarPagina(
+        "Ajustes",
+        "Só se você quiser deixar mais escuro.",
+        botaoAjustes
+    )
+end)
+
+trocarPagina(
+    "Início",
+    "AutoFarm pra você seu preguiçoso",
+    botaoInicio
+)
+
+local sidebarCorner = Instance.new("UICorner")
+sidebarCorner.CornerRadius = UDim.new(0, 8)
+sidebarCorner.Parent = sidebar
 
 local titulo = Instance.new("TextLabel")
 titulo.Parent = frame
@@ -79,47 +277,88 @@ minimizar.Size = UDim2.fromOffset(35, 32)
 minimizar.Position = UDim2.new(1, -42, 0, 7)
 minimizar.Text = "—"
 minimizar.TextSize = 20
-minimizar.BackgroundColor3 =
-    Color3.fromRGB(48, 49, 64)
+minimizar.BackgroundColor3 = Color3.fromRGB(43, 32, 58)
 minimizar.TextColor3 = Color3.new(1, 1, 1)
 minimizar.Parent = frame
+minimizar.BorderSizePixel = 0
+minimizar.AutoButtonColor = true
+
+local minimizarCorner = Instance.new("UICorner")
+minimizarCorner.CornerRadius = UDim.new(0, 8)
+minimizarCorner.Parent = minimizar
 
 local toggle = Instance.new("TextButton")
-toggle.Size = UDim2.new(1, -28, 0, 42)
-toggle.Position = UDim2.fromOffset(14, 58)
+toggle.Size = UDim2.new(1, 0, 0, 38)
+toggle.Position = UDim2.fromOffset(0, 0)
+toggle.ZIndex = 4
 toggle.Text = "Auto Farm: OFF"
 toggle.TextSize = 15
 toggle.Font = Enum.Font.GothamBold
 toggle.TextColor3 = Color3.new(1, 1, 1)
-toggle.BackgroundColor3 =
-    Color3.fromRGB(65, 67, 85)
-toggle.Parent = frame
+toggle.BackgroundColor3 = Color3.fromRGB(48, 35, 66)
+toggle.Parent = areaInicio
+toggle.BorderSizePixel = 0
+
+local toggleCorner = Instance.new("UICorner")
+toggleCorner.CornerRadius = UDim.new(0, 8)
+toggleCorner.Parent = toggle
 
 local status = Instance.new("TextLabel")
-status.Size = UDim2.new(1, -28, 0, 32)
-status.Position = UDim2.fromOffset(14, 110)
+status.Size = UDim2.new(1, 0, 0, 32)
+status.Position = UDim2.fromOffset(0, 45)
+status.Parent = areaInicio
+status.ZIndex = 4
 status.BackgroundTransparency = 1
 status.Text = "Status: Desativado"
 status.TextColor3 = Color3.fromRGB(220, 220, 230)
 status.TextSize = 14
 status.Font = Enum.Font.Gotham
 status.TextXAlignment = Enum.TextXAlignment.Left
-status.Parent = frame
+status.Parent = areaInicio
 
 local espButton = Instance.new("TextButton")
 espButton.Name = "ESPButton"
-espButton.Size = UDim2.new(1, -28, 0, 36)
-espButton.Position = UDim2.fromOffset(14, 150)
+espButton.Size = UDim2.new(1, 0, 0, 38)
+espButton.Position = UDim2.fromOffset(0, 0)
 espButton.Text = "ESP: OFF"
 espButton.TextSize = 15
+espButton.Visible = true
+espButton.ZIndex = 5
 espButton.Font = Enum.Font.GothamBold
 espButton.TextColor3 = Color3.new(1, 1, 1)
-espButton.BackgroundColor3 = Color3.fromRGB(65, 67, 85)
-espButton.Parent = frame
+espButton.BackgroundColor3 = Color3.fromRGB(48, 35, 66)
+espButton.Parent = areaVisual
 
 local espCorner = Instance.new("UICorner")
 espCorner.CornerRadius = UDim.new(0, 8)
 espCorner.Parent = espButton
+toggle.Visible = true
+status.Visible = true
+espButton.Visible = true
+
+local function estilizarBotao(botao)
+    botao.AutoButtonColor = true
+    botao.BorderSizePixel = 0
+
+    local gradiente = Instance.new("UIGradient")
+    gradiente.Color = ColorSequence.new({
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(65, 47, 88)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(37, 27, 51))
+    })
+    gradiente.Rotation = 90
+    gradiente.Parent = botao
+
+    local borda = Instance.new("UIStroke")
+    borda.Color = Color3.fromRGB(91, 66, 119)
+    borda.Thickness = 1
+    borda.Transparency = 0.45
+    borda.Parent = botao
+end
+
+estilizarBotao(toggle)
+estilizarBotao(espButton)
+
+
 
 local RunService = game:GetService("RunService")
 
@@ -218,7 +457,7 @@ local function atualizarESP()
     local raiz = personagem
         and personagem:FindFirstChild("HumanoidRootPart")
 
-    for _, objeto in ipairs(Workspace.LocalCandy2026:GetChildren()) do
+    for _, objeto in ipairs(pastaDoces:GetChildren()) do
         criarESP(objeto)
     end
 
@@ -233,30 +472,22 @@ local function atualizarESP()
     end
 end
 
+
+
 espButton.Activated:Connect(function()
     espAtivo = not espAtivo
 
     if espAtivo then
         espButton.Text = "ESP: ON"
-        espButton.BackgroundColor3 = Color3.fromRGB(35, 150, 95)
+        espButton.BackgroundColor3 = Color3.fromRGB(105, 67, 150)
         atualizarESP()
     else
         espButton.Text = "ESP: OFF"
-        espButton.BackgroundColor3 = Color3.fromRGB(65, 67, 85)
+        espButton.BackgroundColor3 = Color3.fromRGB(48, 35, 66)
         limparESP()
     end
 end)
 
--- Atualiza as distâncias e detecta novos doces.
-task.spawn(function()
-    while gui.Parent do
-        if espAtivo then
-            atualizarESP()
-        end
-
-        task.wait(0.5)
-    end
-end)
 
 
     local function AutoFarm()
@@ -278,7 +509,7 @@ toggle.Activated:Connect(function()
     if ativo then
         toggle.Text = "Auto Farm: ON"
         toggle.BackgroundColor3 =
-            Color3.fromRGB(35, 150, 95)
+            Color3.fromRGB(105, 67, 150)
         status.Text = "Status: Ativado"
         while ativo do
         AutoFarm()
@@ -287,7 +518,7 @@ toggle.Activated:Connect(function()
     else
         toggle.Text = "Auto Farm: OFF"
         toggle.BackgroundColor3 =
-            Color3.fromRGB(65, 67, 85)
+            Color3.fromRGB(48, 35, 66)
         status.Text = "Status: Desativado"
     end
 end)
@@ -295,13 +526,12 @@ end)
 minimizar.Activated:Connect(function()
     minimizado = not minimizado
 
-    toggle.Visible = not minimizado
-    status.Visible = not minimizado
-    espButton.Visible = not minimizado
+    sidebar.Visible = not minimizado
+    conteudo.Visible = not minimizado
 
     frame.Size = minimizado
-        and UDim2.fromOffset(300, 45)
-        or UDim2.fromOffset(300, 200)
+        and UDim2.fromOffset(400, 45)
+        or UDim2.fromOffset(400, 250)
 
     minimizar.Text = minimizado and "+" or "—"
 end)
